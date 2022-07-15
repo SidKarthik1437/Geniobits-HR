@@ -5,15 +5,15 @@ import { useState } from "react";
 function AdminPanel({ user }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState('active');
+  const [status, setStatus] = useState("active");
   const [gender, setGender] = useState("");
 
   const Clear = () => {
     setName("");
     setEmail("");
     setGender("");
-    setStatus('');
-      console.log(process.env.REACT_APP_TOKEN);
+    setStatus("");
+    console.log(process.env.REACT_APP_TOKEN);
   };
 
   const handleSubmit = async (e) => {
@@ -24,16 +24,18 @@ function AdminPanel({ user }) {
       gender: gender,
       status: status,
     };
-    axios.post("https://gorest.co.in/public/v2/users", data, {
-      headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${process.env.REACT_APP_TOKEN}`,
-      },
-    }).then((res) => {
+    axios
+      .post("https://gorest.co.in/public/v2/users", data, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer 52bbde6fb90b8ac3fb4f60b7ed13c8aa00eda1c620b51cc3a4954c6b17a04744`,
+        },
+      })
+      .then((res) => {
         console.log("User Created Successfully");
         console.log(res);
         Clear();
-    });
+      });
     console.log(data);
   };
 
