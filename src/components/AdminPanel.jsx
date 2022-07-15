@@ -2,7 +2,6 @@ import { Input, Radio } from "@material-tailwind/react";
 import axios from "axios";
 import { useState } from "react";
 
-
 function AdminPanel({ user }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -28,7 +27,7 @@ function AdminPanel({ user }) {
     axios.post("https://gorest.co.in/public/v2/users", data, {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer 52bbde6fb90b8ac3fb4f60b7ed13c8aa00eda1c620b51cc3a4954c6b17a04744`,
+        "Authorization": `Bearer ${process.env.REACT_APP_TOKEN}`,
       },
     }).then((res) => {
         console.log("User Created Successfully");
@@ -69,9 +68,7 @@ function AdminPanel({ user }) {
               <input
                 type="number"
                 className="text-lg border w-full h-10 border-gray-300 pl-2 rounded-r"
-                placeholder="EID"
-                //   onChange={(e) => setId(e.target.value)}
-                value="Auto Generated"
+                placeholder="Auto Generated"
                 disabled
               />
               {/* {id} */}
