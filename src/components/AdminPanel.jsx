@@ -2,20 +2,19 @@ import { Input, Radio } from "@material-tailwind/react";
 import axios from "axios";
 import { useState } from "react";
 
-const token =
-  "52bbde6fb90b8ac3fb4f60b7ed13c8aa00eda1c620b51cc3a4954c6b17a04744";
 
 function AdminPanel({ user }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState(false);
+  const [status, setStatus] = useState('active');
   const [gender, setGender] = useState("");
 
   const Clear = () => {
     setName("");
     setEmail("");
     setGender("");
-    setStatus();
+    setStatus('');
+      console.log(process.env.REACT_APP_TOKEN);
   };
 
   const handleSubmit = async (e) => {
@@ -29,8 +28,12 @@ function AdminPanel({ user }) {
     axios.post("https://gorest.co.in/public/v2/users", data, {
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        "Authorization": `Bearer 52bbde6fb90b8ac3fb4f60b7ed13c8aa00eda1c620b51cc3a4954c6b17a04744`,
       },
+    }).then((res) => {
+        console.log("User Created Successfully");
+        console.log(res);
+        Clear();
     });
     console.log(data);
   };
@@ -65,7 +68,7 @@ function AdminPanel({ user }) {
               </span>
               <input
                 type="number"
-                className="text-lg border w-full h-10 border-gray-300 pl-2 pt-1 rounded-r"
+                className="text-lg border w-full h-10 border-gray-300 pl-2 rounded-r"
                 placeholder="EID"
                 //   onChange={(e) => setId(e.target.value)}
                 value="Auto Generated"
@@ -78,7 +81,7 @@ function AdminPanel({ user }) {
                 Fullname
               </span>
               <input
-                className="text-lg border w-full h-10 border-gray-300 pl-2 pt-1 rounded-r"
+                className="text-lg border w-full h-10 border-gray-300 pl-2 rounded-r"
                 placeholder="Fullname"
                 onChange={(e) => setName(e.target.value)}
                 value={name}
@@ -90,7 +93,7 @@ function AdminPanel({ user }) {
               </span>
               <input
                 type="email"
-                className="text-lg border w-full h-10 border-gray-300 pl-2 pt-1 rounded-r"
+                className="text-lg border w-full h-10 border-gray-300 pl-2 rounded-r"
                 placeholder="Email"
                 onChange={(e) => setEmail(e.target.value)}
                 value={email}
@@ -133,9 +136,9 @@ function AdminPanel({ user }) {
                   <Radio
                     type="radio"
                     name="status"
-                    value="true"
+                    value="active"
                     className="text-lg border !h-10 w-5 border-gray-300 pl-2 pt-1"
-                    onChange={(e) => setGender(e.target.value)}
+                    onChange={(e) => setStatus(e.target.value)}
                   />
                 </div>
                 <div className="flex items-center h-10 space-x-2">
@@ -143,9 +146,9 @@ function AdminPanel({ user }) {
                   <Radio
                     type="radio"
                     name="status"
-                    value="false"
+                    value="inactive"
                     className="text-lg border !h-10 w-5 border-gray-300 pl-2 pt-1"
-                    onChange={(e) => setGender(e.target.value)}
+                    onChange={(e) => setStatus(e.target.value)}
                   />
                 </div>
               </div>
